@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -66,6 +67,7 @@ class MyHomePage extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       Navigator.pushNamed(context, '/dokter');
+                      this.sendReq();
                     },
                     child: menuItem("Dokter", Icons.add, Colors.blue),
                   ),
@@ -101,15 +103,14 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              ListView.builder(
+              ListView(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: 10,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
+                children: [
+                  ListTile(
                     contentPadding: EdgeInsets.only(bottom: 15),
                     leading: Image.asset(
-                      "images/doctor2.jpg",
+                      "images/doctor01.jpeg",
                     ),
                     title: Text(
                       "dr. Gilang Segara",
@@ -155,8 +156,8 @@ class MyHomePage extends StatelessWidget {
                         ),
                       ),
                     ),
-                  );
-                },
+                  )
+                ],
               ),
             ],
           ),
@@ -202,5 +203,17 @@ class MyHomePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void sendReq() async {
+    var client = http.Client();
+    try {
+      var request =
+          await client.get(Uri.parse('https://dummyjson.com/products/1'));
+      var response = request.body;
+      print(response);
+    } finally {
+      client.close();
+    }
   }
 }

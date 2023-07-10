@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_doctor_app/dokterform_page.dart';
 import 'package:flutter_doctor_app/my_home_page.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'dokter_page.dart';
 
 void main() {
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         '/dokterform': (context) => DokterformPage(),
       },
       home: MyHomePage(),
+      builder: EasyLoading.init(),
     );
   }
 }

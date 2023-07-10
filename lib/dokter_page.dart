@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -42,6 +43,7 @@ class _DokterPageState extends State<DokterPage> {
 
   List listData = [];
   void getData() async {
+    EasyLoading.show(status: 'loading...');
     //fetch data api dummy json
     var client = http.Client();
     var request = await client.get(Uri.parse('https://dummyjson.com/products'));
@@ -50,5 +52,6 @@ class _DokterPageState extends State<DokterPage> {
     setState(() {
       listData = semuaProducts;
     });
+    EasyLoading.dismiss();
   }
 }
